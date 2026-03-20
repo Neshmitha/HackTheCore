@@ -30,6 +30,8 @@ function App() {
     } catch (err) { console.error("Sheet Error:", err); }
   };
 
+  const handleStartGame = () => setCurrentRound('registration');
+
   const handleRegistrationComplete = async (data) => {
     setTeamData(data);
     setStartTime(Date.now());
