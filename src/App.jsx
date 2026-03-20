@@ -63,37 +63,41 @@ function App() {
   const handleGameComplete = () => setCurrentRound('completed');
 
   return (
-    <div className="app-container">
+    <>
       {currentRound === 'landing' && <Landing onStart={handleStartGame} />}
+      
+      {currentRound !== 'landing' && (
+        <div className="app-container">
+          {currentRound === 'registration' && (
+            <Registration onComplete={handleRegistrationComplete} />
+          )}
 
-      {currentRound === 'registration' && (
-        <Registration onComplete={handleRegistrationComplete} />
-      )}
+          {currentRound === 'round1' && (
+            <Crossword teamData={teamData} onComplete={handleRound1Complete} />
+          )}
 
-      {currentRound === 'round1' && (
-        <Crossword teamData={teamData} onComplete={handleRound1Complete} />
-      )}
+          {currentRound === 'round2' && (
+            <Mcq teamData={teamData} round1Passkey={round1Passkey} onComplete={handleRound2Complete} />
+          )}
 
-      {currentRound === 'round2' && (
-        <Mcq teamData={teamData} round1Passkey={round1Passkey} onComplete={handleRound2Complete} />
-      )}
+          {currentRound === 'round3' && (
+            <Round3 teamData={teamData} onComplete={handleRound3Complete} />
+          )}
 
-      {currentRound === 'round3' && (
-        <Round3 teamData={teamData} onComplete={handleRound3Complete} />
-      )}
+          {currentRound === 'finale' && (
+            <GrandFinale teamData={teamData} totalTime={totalTime} onComplete={handleGameComplete} />
+          )}
 
-      {currentRound === 'finale' && (
-        <GrandFinale teamData={teamData} totalTime={totalTime} onComplete={handleGameComplete} />
-      )}
-
-      {currentRound === 'completed' && (
-        <div className="glass-card flex-center full-screen">
-          <h1 className="neon-text">🎉 Game Completed! 🎉</h1>
-          <p>Final Time: <strong>{Math.floor(totalTime/60)}m {totalTime%60}s</strong></p>
-          <p>Thank you for playing. Check the leaderboard!</p>
+          {currentRound === 'completed' && (
+            <div className="glass-card flex-center full-screen">
+              <h1 className="neon-text">🎉 Game Completed! 🎉</h1>
+              <p>Final Time: <strong>{Math.floor(totalTime/60)}m {totalTime%60}s</strong></p>
+              <p>Thank you for playing. Check the leaderboard!</p>
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }
 
