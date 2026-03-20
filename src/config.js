@@ -1,2 +1,2 @@
 // FINAL OPERATIONAL LEADERBOARD URL
-export const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyXdvMfjMktdI6Dxzp3nds5pDMfGaV_1v4YyXME5n1TRPAPgas3hD9ucPIwL9dua-iG/exec"; 
+export const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwqVKyjiUe3-wafIVKtc1gJx8ADt3Rq-hjpcaNl-PaHVPKz-sjfEUX3umtVQEx5ruUW/exec"; 
