@@ -18,14 +18,10 @@ function App() {
   const sendUpdate = async (payload) => {
     if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === "PASTE_YOUR_SCRIPT_URL_HERE") return;
     try {
-      const formData = new URLSearchParams();
-      for (const key in payload) {
-        formData.append(key, payload[key]);
-      }
       await fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
         mode: 'no-cors',
-        body: formData
+        body: JSON.stringify(payload)
       });
     } catch (err) { console.error("Sheet Error:", err); }
   };
