@@ -1,0 +1,528 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root {
+  --bg-color: #0b0f19;
+  --card-bg: rgba(22, 33, 62, 0.6);
+  --neon-blue: #00e5ff;
+  --neon-pink: #e94560;
+  --text-main: #ffffff;
+  --text-muted: #a8b2d1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #000000;
+  color: var(--text-main);
+  background-image: none;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.registration-card {
+  background-color: #000000;
+  border: 1px solid rgba(0, 229, 255, 0.2); /* very thin light blue border */
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.registration-card:hover {
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+  border-color: rgba(0, 229, 255, 0.8);
+}
+
+.neon-text {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+  margin-top: 0;
+}
+
+/* Typography & Layouts */
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-screen {
+  min-height: 80vh;
+}
+
+/* Landing specific */
+.landing-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background-color: #0b0f19;
+  /* fallback */
+}
+
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+}
+
+.full-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 34vh;
+  background: rgba(0, 0, 0, 0.2);
+  /* very subtle darkening for readability */
+}
+
+/* Buttons */
+.glow-btn {
+  background-color: #000000;
+  color: var(--neon-blue);
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.6), inset 0 0 10px rgba(0, 229, 255, 0.4);
+  padding: 15px 40px;
+  font-size: 1.4rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.action-btn {
+  background-color: var(--neon-pink);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.action-btn:hover {
+  background-color: #f73656;
+  box-shadow: 0 0 15px rgba(233, 69, 96, 0.4);
+}
+
+.action-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+/* Registration specific light blue buttons */
+.registration-action-btn {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.registration-action-btn:hover {
+  background-color: #000000;
+  border-color: #66ccff;
+  box-shadow: 0 0 15px rgba(102, 204, 255, 0.8), inset 0 0 8px rgba(102, 204, 255, 0.4);
+}
+
+.registration-action-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  color: #aaa;
+}
+
+/* Forms & Inputs */
+.modern-input {
+  width: 100%;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-family: 'Inter', sans-serif;
+  margin-top: 8px;
+}
+
+.modern-input:hover,
+.modern-input:focus {
+  outline: none;
+  border-color: #66ccff; /* Solid light blue */
+  box-shadow: 0 0 12px rgba(102, 204, 255, 0.8), 0 0 5px rgba(102, 204, 255, 0.5);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.members-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.member-card {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 3px solid var(--neon-pink);
+}
+
+.member-card h4 {
+  margin: 0 0 1rem 0;
+  color: var(--neon-pink);
+}
+
+.registration-member-card {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 3px solid #66ccff;
+}
+
+.registration-member-card h4 {
+  margin: 0 0 1rem 0;
+  color: #66ccff;
+  text-shadow: 0 0 8px rgba(102, 204, 255, 0.5);
+}
+
+.member-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.member-inputs input {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .member-inputs {
+    flex-direction: column;
+  }
+
+  .landing-title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Crossword CSS */
+.cw-grid {
+  display: grid;
+  gap: 0;
+  justify-content: center;
+  margin: 20px auto;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.cw-cell {
+  background-color: #fff;
+  border: 1px solid #c0c0c0;
+  position: relative;
+}
+
+.cw-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  font-weight: bold;
+  color: #000;
+  font-family: 'Inter', sans-serif;
+}
+
+.cw-input:focus {
+  background-color: #bbf0bf;
+}
+
+.cw-num {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 0.65rem;
+  color: #555;
+  pointer-events: none;
+  font-weight: bold;
+}
+
+.cw-clues {
+  display: flex;
+  gap: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.cw-clues div {
+  flex: 1;
+}
+
+.cw-clues ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.cw-clues li {
+  margin-bottom: 8px;
+}
+
+/* MCQs */
+.mcq-scroll {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 15px;
+  margin-top: 20px;
+}
+
+.mcq-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mcq-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.mcq-scroll::-webkit-scrollbar-thumb {
+  background: var(--neon-pink);
+  border-radius: 4px;
+}
+
+.mcq-card {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 3px solid var(--neon-blue);
+  margin-bottom: 1rem;
+}
+
+.mcq-option {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mcq-option:hover {
+  background: rgba(0, 229, 255, 0.1);
+  border-color: var(--neon-blue);
+}
+
+.mcq-option.correct {
+  background: rgba(46, 125, 50, 0.6);
+  pointer-events: none;
+  border-color: #4caf50;
+}
+
+.mcq-option.incorrect {
+  background: rgba(198, 40, 40, 0.9) !important;
+  border-color: #f44336 !important;
+  color: white !important;
+  box-shadow: 0 0 20px rgba(244, 67, 54, 0.6);
+  transform: scale(0.98);
+}
+
+/* Revealed Code Area */
+.code-reveal-area {
+  background-color: #0b0f19;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+  border: 1px solid #333;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.code-reveal-area pre {
+  margin: 0;
+  color: #a8b2d1;
+  white-space: pre-wrap;
+  font-size: 1.1rem;
+  min-height: 100px;
+}
+
+/* --- Round 3 Winner Popup & Grand Finale --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+}
+
+.winner-popup {
+    max-width: 500px;
+    width: 90%;
+    padding: 40px !important;
+    border: 2px solid #58a6ff;
+    box-shadow: 0 0 40px rgba(88, 166, 255, 0.3);
+    background: #0d1117 !important;
+}
+
+.stats-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: left;
+    border: 1px solid #30363d;
+}
+
+.stats-box p {
+    margin: 5px 0;
+    color: #8b949e;
+}
+
+.grand-finale-container {
+    max-width: 900px !important;
+    background: linear-gradient(145deg, rgba(13, 17, 23, 0.9), rgba(22, 27, 34, 0.9)) !important;
+}
+
+.achievement-grid {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
+    gap: 20px;
+}
+
+.achievement-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 12px;
+    flex: 1;
+    border: 1px solid #30363d;
+    transition: transform 0.3s;
+}
+
+.achievement-item:hover {
+    transform: translateY(-5px);
+    border-color: #58a6ff;
+}
+
+.achievement-item .icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.leaderboard-teaser {
+    margin-top: 40px;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    border: 1px dashed #444;
+}
+
+.fake-leaderboard {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.leaderboard-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #222;
+    color: #8b949e;
+}
+
+.leaderboard-row.highlight {
+    color: #7ee787;
+    font-weight: bold;
+    border-bottom-color: #7ee787;
+}
+
+.neon-text-gold {
+    color: #ffcc00;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5), 0 0 20px rgba(255, 204, 0, 0.3);
+}
+
+.neon-text-blue {
+    color: #58a6ff;
+    text-shadow: 0 0 10px rgba(88, 166, 255, 0.5), 0 0 20px rgba(88, 166, 255, 0.3);
+}
