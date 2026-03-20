@@ -5,14 +5,20 @@ const Landing = ({ onStart }) => {
     return (
         <div className="landing-container">
             <div className="video-background">
-                <video autoPlay loop muted playsInline id="bg-video">
+                <video 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline 
+                    id="bg-video"
+                    onError={() => console.error("Landing Video Failed to Load")}
+                >
                     <source src="/Hack_the_core_landing_page.mp4" type="video/mp4" />
                 </video>
             </div>
 
             <motion.div
                 className="full-overlay flex-center"
-                initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.5 }}
             >
