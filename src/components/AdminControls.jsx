@@ -244,9 +244,8 @@ const AdminControls = ({ isOpen, onClose, isLocked }) => {
                                         Current Status: <strong className={isLocked ? "error-text" : "success-text"}>{isLocked ? "LOCKED" : "UNLOCKED"}</strong>
                                     </div>
                                     <button 
-                                        className="glow-btn small-btn"
+                                        className={isLocked ? "unlock-btn" : "lock-btn"}
                                         onClick={handleToggleLock}
-                                        style={{width: '100%', maxWidth: '300px', background: isLocked ? 'rgba(0, 229, 255, 0.2)' : 'rgba(255, 50, 50, 0.2)'}}
                                     >
                                         {isLocked ? 'Unlock Game Everywhere' : 'Lock Game Everywhere'}
                                     </button>

@@ -991,6 +991,44 @@ h4 {
   overflow-y: auto;
 }
 
+.lock-btn {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 50, 50, 0.5);
+  background: rgba(255, 50, 50, 0.1);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.lock-btn:hover {
+  background: rgba(255, 50, 50, 0.2);
+  border-color: rgba(255, 50, 50, 0.8);
+}
+
+.unlock-btn {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  background: rgba(0, 229, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.unlock-btn:hover {
+  background: rgba(0, 229, 255, 0.2);
+  border-color: rgba(0, 229, 255, 0.8);
+}
+
 @media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;
