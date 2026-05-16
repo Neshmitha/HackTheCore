@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import AdminControls from './AdminControls';
+import { database } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 
 const Landing = ({ onStart }) => {
+    const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+    const [isGameLocked, setIsGameLocked] = useState(false);
+
+    useEffect(() => {
+        const lockRef = ref(database, 'gameSettings/adminControls/isLocked');
+        const unsubscribe = onValue(lockRef, (snapshot) => {
+            const locked = snapshot.val();
+            setIsGameLocked(locked === true);
+        });
+
+        // Cleanup listener on unmount
+        return () => unsubscribe();
+    }, []);
+
+    const handleStartClick = () => {
+        if (isGameLocked) {
+            alert('The game is currently locked by admin.');
+        } else {
+            onStart();
+        }
+    };
+
     return (
         <div className="landing-container">
             <div className="hero-section">
@@ -23,23 +48,40 @@ const Landing = ({ onStart }) => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1.5 }}
                 >
-                    <div className="landing-actions">
+                    <div className="landing-actions" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <motion.button
                             id="enter-btn"
                             className="glow-btn"
                             whileHover={{ scale: 1.1, boxShadow: "0 0 30px rgba(0, 229, 255, 0.8)" }}
                             whileTap={{ scale: 0.9 }}
-                            onClick={onStart}
+                            onClick={handleStartClick}
                             initial={{ scale: 0.8 }}
                             animate={{ scale: 1 }}
                         >
                             Start Game
                         </motion.button>
 
-
+                        <motion.button
+                            className="glow-btn small-btn admin-btn"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => setIsAdminModalOpen(true)}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1 }}
+                            style={{ marginTop: '20px', background: 'rgba(255, 255, 255, 0.1)', fontSize: '0.9rem', padding: '10px 20px' }}
+                        >
+                            Admin Controls
+                        </motion.button>
                     </div>
                 </motion.div>
             </div>
+
+            <AdminControls 
+                isOpen={isAdminModalOpen} 
+                onClose={() => setIsAdminModalOpen(false)} 
+                isLocked={isGameLocked}
+            />
 
             {/* Event Coordinators Section */}
             <div className="coordinators-section">
