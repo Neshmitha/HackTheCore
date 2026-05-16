@@ -81,7 +81,9 @@ const AdminControls = ({ isOpen, onClose, isLocked }) => {
 
     const [activeTab, setActiveTab] = useState('state');
     const [newLink, setNewLink] = useState('');
+    const [newViewLink, setNewViewLink] = useState(''); // NEW STATE
     const [activeSheetUrl, setActiveSheetUrl] = useState('');
+    const [activeViewUrl, setActiveViewUrl] = useState(''); // NEW STATE
     const [sheetHistory, setSheetHistory] = useState([]);
     const [copied, setCopied] = useState(false);
 
@@ -98,9 +100,11 @@ const AdminControls = ({ isOpen, onClose, isLocked }) => {
     useEffect(() => {
         if (isAuthenticated) {
             const sheetRef = ref(database, 'gameSettings/adminControls/activeSheetUrl');
+            const viewRef = ref(database, 'gameSettings/adminControls/activeViewUrl');
             const historyRef = ref(database, 'gameSettings/adminControls/sheetHistory');
             
             const unsubSheet = onValue(sheetRef, snap => setActiveSheetUrl(snap.val() || ''));
+            const unsubView = onValue(viewRef, snap => setActiveViewUrl(snap.val() || ''));
             const unsubHistory = onValue(historyRef, snap => {
                 const data = snap.val();
                 if (data) {
@@ -109,7 +113,7 @@ const AdminControls = ({ isOpen, onClose, isLocked }) => {
                 }
             });
 
-            return () => { unsubSheet(); unsubHistory(); };
+            return () => { unsubSheet(); unsubView(); unsubHistory(); };
         }
     }, [isAuthenticated]);
 
@@ -146,18 +150,25 @@ const AdminControls = ({ isOpen, onClose, isLocked }) => {
             const urlRef = ref(database, 'gameSettings/adminControls/activeSheetUrl');
             await set(urlRef, newLink.trim());
 
+            if (newViewLink.trim()) {
+                const viewRef = ref(database, 'gameSettings/adminControls/activeViewUrl');
+                await set(viewRef, newViewLink.trim());
+            }
+
             const historyRef = ref(database, 'gameSettings/adminControls/sheetHistory');
             const newHistoryRef = push(historyRef);
             await set(newHistoryRef, {
                 url: newLink.trim(),
+                viewUrl: newViewLink.trim() || '',
                 timestamp: Date.now()
             });
 
             setNewLink('');
-            alert('Active Google Sheet URL updated globally!');
+            setNewViewLink('');
+            alert('Active Google Sheet setup updated globally!');
         } catch (err) {
             console.error("Error updating sheet:", err);
-            alert("Failed to update sheet URL.");
+            alert("Failed to update sheet setup.");
         }
     };
 
@@ -245,25 +256,44 @@ const AdminControls = ({ isOpen, onClose, isLocked }) => {
                             {activeTab === 'links' && (
                                 <div className="tab-pane">
                                     <h3>Google Sheet Management</h3>
-                                    <form onSubmit={handleUpdateSheet} className="link-form">
-                                        <label>Set New Apps Script URL:</label>
-                                        <div style={{display: 'flex', gap: '10px', marginTop: '10px'}}>
+                                    <form onSubmit={handleUpdateSheet} className="link-form" style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
+                                        <div>
+                                            <label>1. Apps Script Web App URL (For Database):</label>
                                             <input 
                                                 type="url" 
                                                 value={newLink} 
                                                 onChange={(e) => setNewLink(e.target.value)} 
                                                 placeholder="https://script.google.com/macros/s/..." 
                                                 className="admin-input"
-                                                style={{margin: 0, flex: 1}}
                                                 required 
                                             />
-                                            <button type="submit" className="action-btn" style={{padding: '0 20px'}}>Update</button>
                                         </div>
+                                        <div>
+                                            <label>2. Direct Google Sheet Link (Optional, to open leaderboard):</label>
+                                            <input 
+                                                type="url" 
+                                                value={newViewLink} 
+                                                onChange={(e) => setNewViewLink(e.target.value)} 
+                                                placeholder="https://docs.google.com/spreadsheets/d/..." 
+                                                className="admin-input"
+                                            />
+                                        </div>
+                                        <button type="submit" className="action-btn" style={{padding: '10px', marginTop: '5px'}}>Update Links</button>
                                     </form>
 
                                     <div className="active-link-display">
-                                        <h4>Current Active URL:</h4>
-                                        <p className="url-text">{activeSheetUrl || "No active sheet set!"}</p>
+                                        <h4>Current Active Setup:</h4>
+                                        <p className="url-text" style={{marginTop: '10px'}}><strong>Data URL:</strong><br/>{activeSheetUrl || "No active sheet set!"}</p>
+                                        
+                                        {activeViewUrl ? (
+                                            <div style={{marginTop: '15px'}}>
+                                                <a href={activeViewUrl} target="_blank" rel="noreferrer" className="glow-btn small-btn" style={{display: 'inline-block', textDecoration: 'none'}}>
+                                                    Open Google Sheet 📊
+                                                </a>
+                                            </div>
+                                        ) : (
+                                            <p className="url-text" style={{marginTop: '10px'}}><strong>View URL:</strong> Not set</p>
+                                        )}
                                     </div>
 
                                     <div className="history-section">
@@ -272,7 +302,8 @@ const AdminControls = ({ isOpen, onClose, isLocked }) => {
                                             {sheetHistory.map((item, idx) => (
                                                 <div key={idx} className="history-item">
                                                     <span className="history-date">{new Date(item.timestamp).toLocaleString()}</span>
-                                                    <span className="history-url">{item.url}</span>
+                                                    <span className="history-url"><strong>Data:</strong> {item.url}</span>
+                                                    {item.viewUrl && <span className="history-url" style={{marginTop: '4px'}}><strong>View:</strong> <a href={item.viewUrl} target="_blank" rel="noreferrer" style={{color: '#66ccff'}}>Open Sheet</a></span>}
                                                 </div>
                                             ))}
                                         </div>
