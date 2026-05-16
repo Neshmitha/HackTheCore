@@ -9,6 +9,7 @@ import MarketingReel from './components/MarketingReel';
 import './index.css';
 import { database } from './firebase';
 import { ref, onValue } from 'firebase/database';
+import { GOOGLE_SHEET_URL } from './config';
 
 function App() {
   const [currentRound, setCurrentRound] = useState('landing');
@@ -27,8 +28,9 @@ function App() {
   }, []);
 
   const sendUpdate = (payload) => {
-    if (!activeSheetUrl || activeSheetUrl === "PASTE_YOUR_SCRIPT_URL_HERE") return;
-    fetch(activeSheetUrl, {
+    const urlToUse = activeSheetUrl || GOOGLE_SHEET_URL;
+    if (!urlToUse || urlToUse === "PASTE_YOUR_SCRIPT_URL_HERE") return;
+    fetch(urlToUse, {
       method: 'POST',
       mode: 'no-cors',
       body: JSON.stringify(payload)
