@@ -1029,6 +1029,24 @@ h4 {
   border-color: rgba(0, 229, 255, 0.8);
 }
 
+.simple-black-btn {
+  background: #000000;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #333333;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.simple-black-btn:hover {
+  background: #1a1a1a;
+  border-color: #666666;
+}
+
 @media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;
