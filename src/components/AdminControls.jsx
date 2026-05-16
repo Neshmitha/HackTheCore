@@ -288,7 +288,7 @@ const AdminControls = ({ isOpen, onClose, isLocked }) => {
                                         {activeViewUrl ? (
                                             <div style={{marginTop: '15px'}}>
                                                 <a href={activeViewUrl} target="_blank" rel="noreferrer" className="glow-btn small-btn" style={{display: 'inline-block', textDecoration: 'none'}}>
-                                                    Open Google Sheet 📊
+                                                    Open Google Sheet
                                                 </a>
                                             </div>
                                         ) : (
