@@ -839,6 +839,9 @@ h4 {
 .admin-dashboard-modal {
   max-width: 900px !important;
   width: 95% !important;
+  height: 70vh !important;
+  min-height: 500px;
+  max-height: 800px;
   display: flex;
   flex-direction: column;
 }
@@ -847,7 +850,8 @@ h4 {
   display: flex;
   gap: 30px;
   margin-top: 20px;
-  min-height: 400px;
+  flex: 1;
+  overflow: hidden;
 }
 
 .dashboard-sidebar {
@@ -857,6 +861,7 @@ h4 {
   gap: 10px;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   padding-right: 20px;
+  overflow-y: auto;
 }
 
 .tab-btn {
@@ -870,6 +875,7 @@ h4 {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .tab-btn:hover {
@@ -886,7 +892,7 @@ h4 {
 .dashboard-content {
   flex: 1;
   overflow-y: auto;
-  max-height: 600px;
+  padding-right: 10px;
 }
 
 .dashboard-content::-webkit-scrollbar {
