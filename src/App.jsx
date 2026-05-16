@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Landing from './components/Landing';
 import Registration from './components/Registration';
 import Crossword from './components/Crossword';
@@ -7,7 +7,8 @@ import Round3 from './components/Round3';
 import GrandFinale from './components/GrandFinale';
 import MarketingReel from './components/MarketingReel';
 import './index.css';
-import { GOOGLE_SHEET_URL } from './config';
+import { database } from './firebase';
+import { ref, onValue } from 'firebase/database';
 
 function App() {
   const [currentRound, setCurrentRound] = useState('landing');
@@ -15,11 +16,19 @@ function App() {
   const [round1Passkey, setRound1Passkey] = useState('');
   const [startTime, setStartTime] = useState(null);
   const [totalTime, setTotalTime] = useState(0);
+  const [activeSheetUrl, setActiveSheetUrl] = useState(null);
 
+  useEffect(() => {
+    const sheetRef = ref(database, 'gameSettings/adminControls/activeSheetUrl');
+    const unsubscribe = onValue(sheetRef, (snapshot) => {
+      setActiveSheetUrl(snapshot.val());
+    });
+    return () => unsubscribe();
+  }, []);
 
   const sendUpdate = (payload) => {
-    if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === "PASTE_YOUR_SCRIPT_URL_HERE") return;
-    fetch(GOOGLE_SHEET_URL, {
+    if (!activeSheetUrl || activeSheetUrl === "PASTE_YOUR_SCRIPT_URL_HERE") return;
+    fetch(activeSheetUrl, {
       method: 'POST',
       mode: 'no-cors',
       body: JSON.stringify(payload)
